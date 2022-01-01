@@ -8,6 +8,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return null;
       },
       onSaved: (value) {
-        print(value);
+        email = value;
       },
     );
   }
@@ -58,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return null;
       },
       onSaved: (value) {
-        print(value);
+        password = value;
       },
     );
   }
@@ -70,11 +73,12 @@ class _LoginScreenState extends State<LoginScreen> {
         if (_formKey.currentState.validate()) {
           // If the form is valid, display a snackbar. In the real world,
           // you'd often call a server or save the information in a database.
+          _formKey.currentState.save();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Submitted Data!!')),
           );
+          print('email: $email and password: $password gotten');
           // save
-          _formKey.currentState.save();
         }
       },
       child: Text('Submit!'),
